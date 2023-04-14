@@ -89,11 +89,6 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
         paddingHorizontal: 8
     },
-    tarefa:{
-        flex: 9,
-        color: '#D9D9D9',
-        marginHorizontal: 10
-    },
     listaVazia:{
         flex: 1,
         alignItems: 'center',
@@ -105,26 +100,5 @@ export const styles = StyleSheet.create({
     },
     listaVazia2:{
         color: '#808080'
-    },
-    cardTarefa:{
-        flexDirection: 'row',
-        backgroundColor: '#262626',
-        alignItems: 'center',
-        height: 60,
-        borderRadius: 10,
-        marginBottom: 5,
-        paddingHorizontal: 10
-    },
-    radio:{
-        width: 25,
-        height: 25,
-        borderRadius: 100,
-        borderColor: '#4184ad',
-        borderWidth: 3
-    },
-    remover:{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
     }
 });

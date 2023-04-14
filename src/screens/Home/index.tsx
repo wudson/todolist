@@ -1,19 +1,34 @@
 import { View, Text, TextInput, TouchableOpacity, Image, FlatList, Button } from "react-native";
 import { styles } from "./styles";
 import React, { useState } from "react";
+import { Tarefa } from "../../components/Tarefas";
+
+export type Tarefas = {
+  descricao: string;
+  concluida: boolean;
+  id: string;
+}
 
 export function Home() {
 
-  const [tarefas, setTarefas] = useState<string[]>([]);
+  const [tarefas, setTarefas] = useState<Tarefas[]>([]);
   const [tarefa, setTarefa] = useState('');
 
   function addTarefa() {
-    setTarefas(prev => [...prev, tarefa])
+    const data = {
+      id: String(new Date().getTime()),
+      descricao: tarefa,
+      concluida: false
+    };
+
+    setTarefas(prev => [...prev, data]);
+    setTarefa('');
+
+    console.log(tarefas)
   }
 
   function removeTarefa(item: string) {
-    setTarefas(prev => prev.filter(tarefa => tarefa !== item))
-    console.log(tarefas);
+    setTarefas(prev => prev.filter(tarefa => tarefa.id !== item))
   }
 
   return (
@@ -42,29 +57,19 @@ export function Home() {
 
         <FlatList
           data={tarefas}
-          renderItem={({ item }) => 
-          <View style={styles.cardTarefa}>
-            <View style={{flex: 1}}>
-          <Text style={styles.radio}></Text>
-          </View>
-          <Text style={styles.tarefa}>{item}</Text>
-          <TouchableOpacity 
-          style={styles.remover} 
-          onPress={() => removeTarefa(item)}>
-            <Text>
-              🗑
-            </Text>
-          </TouchableOpacity>
-          </View>
-        }
-          keyExtractor={item => item}
+          renderItem={({ item }) => (
+            <Tarefa
+              tarefa={item}
+              key={item.id}
+              onRemove={() => removeTarefa(item.id)} />
+          )}
+          keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={() =>
             <View style={styles.listaVazia}>
               <Image
-
-                  source={require('../../../assets/favicon.png')}
-                    />
+                source={require('../../../assets/favicon.png')}
+              />
               <Text style={styles.listaVazia1}>
                 Você ainda não tem tarefas cadastradas
               </Text>
@@ -82,7 +87,8 @@ export function Home() {
             style={styles.input}
             placeholder="Adicione uma nova tarefa"
             placeholderTextColor='#333333'
-            onChangeText={setTarefa} />
+            onChangeText={setTarefa}
+            value={tarefa} />
           <TouchableOpacity
             style={styles.buttonAdd}
             onPress={addTarefa}>
