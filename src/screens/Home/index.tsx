@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, Image, FlatList, Button } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image, FlatList } from "react-native";
 import { styles } from "./styles";
 import React, { useState } from "react";
 import { Tarefa } from "../../components/Tarefas";
@@ -10,6 +10,11 @@ export type Tarefas = {
 }
 
 export function Home() {
+
+  function handleCheck(item: Tarefas) {
+    item.concluida = !item.concluida;
+    setTarefas([...tarefas])
+  }
 
   const [tarefas, setTarefas] = useState<Tarefas[]>([]);
   const [tarefa, setTarefa] = useState('');
@@ -23,12 +28,10 @@ export function Home() {
 
     setTarefas(prev => [...prev, data]);
     setTarefa('');
-
-    console.log(tarefas)
   }
 
   function removeTarefa(item: string) {
-    setTarefas(prev => prev.filter(tarefa => tarefa.id !== item))
+    setTarefas([...tarefas.filter(tarefa => tarefa.id !== item)])
   }
 
   return (
@@ -46,12 +49,20 @@ export function Home() {
       <View style={styles.bottomContainer}>
         <View style={styles.container}>
           <View style={styles.coluna1}>
-            <Text style={styles.textoColuna1}>Criadas</Text>
-            <Text style={styles.contador}>0</Text>
+            <Text style={styles.textoColuna1}>
+              Criadas
+            </Text>
+            <Text style={styles.contador}>
+              {tarefas.length}
+            </Text>
           </View>
           <View style={styles.coluna2}>
-            <Text style={styles.textoColuna2}>Concluidas</Text>
-            <Text style={styles.contador}>0</Text>
+            <Text style={styles.textoColuna2}>
+              Concluidas
+            </Text>
+            <Text style={styles.contador}>
+              {tarefas.filter(tarefa => tarefa.concluida).length}
+            </Text>
           </View>
         </View>
 
@@ -61,7 +72,8 @@ export function Home() {
             <Tarefa
               tarefa={item}
               key={item.id}
-              onRemove={() => removeTarefa(item.id)} />
+              onRemove={() => removeTarefa(item.id)}
+              checkTarefa={() => handleCheck(item)} />
           )}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}

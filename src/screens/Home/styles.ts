@@ -24,10 +24,8 @@ export const styles = StyleSheet.create({
     buttonContainer: {
         position: 'absolute',
         width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
         flexDirection: "row",
-        height: '50%'
+        marginTop: '46%'
     },
     input: {
         flex: 1,

@@ -10,12 +10,19 @@ export const styles = StyleSheet.create({
         marginBottom: 5,
         paddingHorizontal: 10
     },
-    radio:{
+    desmarcado:{
         width: 25,
         height: 25,
         borderRadius: 100,
         borderColor: '#4184ad',
         borderWidth: 3
+    },
+    marcado:{
+        width: 25,
+        height: 25,
+        borderRadius: 100,
+        borderColor: '#4e4f8a',
+        backgroundColor: '#4e4f8a'
     },
     remover:{
         flex: 1,
@@ -26,5 +33,11 @@ export const styles = StyleSheet.create({
         flex: 9,
         color: '#D9D9D9',
         marginHorizontal: 10
+    },
+    tarefaConcluida:{
+        flex: 9,
+        color: '#808080',
+        marginHorizontal: 10,
+        textDecorationLine: 'line-through'
     }
 });
